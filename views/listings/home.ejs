@@ -1,0 +1,90 @@
+<% layout("/layout/biolerplate.ejs") %>
+
+<!-- Slider -->
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/img/mandalorian.jpg" class="bd-placeholder-img img-slider" width="100%">
+      <div class="container">
+        <div class="carousel-caption text-start">
+          <h1>Explore Movies.</h1>
+          <p>Some representative placeholder content for the first slide of the carousel.</p>
+          <p><a class="btn btn-lg btn-warning" href="/signup">Sign up today</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/img/twbb.jpg" class="bd-placeholder-img img-slider" width="100%" height="500">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Watch Top Rated</h1>
+          <p><a class="btn btn-lg btn-warning" href="/movie">View List</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/img/hotd.jpg" class="bd-placeholder-img img-slider" width="100%" height="500">
+      <div class="container">
+        <div class="carousel-caption text-end">
+          <h1>Add Favorites Movie</h1>
+          <p>Create and share list of your favorite movies.</p>
+          <p><a class="btn btn-lg btn-warning" href="#">View Favorites</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Movie List -->
+<div class="cus-card-menu">
+  <hr class="hr-line">
+
+  <h2> Popular Movie:</h2>
+  <div class="cus-card-container">
+    <% popular.forEach(el => { %>
+    <div class="card cus-card">
+      <a href="/movie/<%= el.imdbID %>">
+        <img src="<%= el.Poster %>" class="bd-placeholder-img card-img-top home-card-img" height="175" />
+      </a>
+    </div>
+    <% }) %>
+  </div>
+  <hr class="hr-line">
+
+  <h2> Popular Webseries:</h2>
+  <div class="cus-card-container">
+    <% webSeries.forEach(el => { %>
+    <div class="card cus-card">
+      <a href="/movie/<%= el.imdbID %>">
+        <img src="<%= el.Poster %>" class="bd-placeholder-img card-img-top home-card-img" height="175" />
+      </a>
+    </div>
+    <% }) %>
+  </div>
+  <hr class="hr-line">
+
+  <h2> Top Rated Movie:</h2>
+  <div class="cus-card-container">
+    <% topRated.forEach(el => { %>
+    <div class="cus-card">
+      <a href="/movie/<%= el.imdbID %>">
+        <img src="<%= el.Poster %>" class="bd-placeholder-img card-img-top home-card-img" height="175" />
+      </a>
+    </div>
+    <% }) %>
+  </div>
+  <hr class="hr-line">
+</div>

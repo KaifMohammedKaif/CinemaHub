@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand cinema" href="/"><img src="/svg/film-solid.svg" height="25px"> CinemaHub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/"> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/movie">Top Rated</a>
+        </li>
+      </ul>
+      <form class="d-flex" method="post" action="/movie">
+        <input class="form-control me-2" type="search" name="movieSearch" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-warning" type="submit"><img src="/svg/magnifying-glass.svg" height="23px"></button>
+      </form>
+      <div class="ms-auto">
+        <ul class="navbar-nav">
+          <% if (!currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup"><b>Sign-up</b><img src="/svg/user-plus-solid.svg" class="svg" height="20px"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><b>Log in</b><img src="/svg/user-solid.svg" class="svg" height="20px"></a>
+          </li>
+          <% } %> <% if (currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%= currUser._id %>"><b class="cinema">My Fav</b><img src="/svg/heart-solid.svg" class="svg" height="20px"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout"><b>Log out</b><img src="/svg/right-from-bracket-solid.svg" class="svg" height="20px"></a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

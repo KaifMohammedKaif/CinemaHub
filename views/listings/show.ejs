@@ -1,0 +1,118 @@
+<% layout("/layout/biolerplate.ejs") %>
+
+<div class="col col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12 offset-sm-0 show-page">
+  <div class="row featurette">
+    <div class="col-md-5 order-md-1 mb-3">
+      <img src="<%= movie.Poster %>" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto show-img" width="500" height="500" />
+    </div>
+    <div class="col-md-7 order-md-2 mb-3">
+      <h1 class="featurette-heading">
+        <%= movie.Title %>
+      </h1>
+      <h3 class="featurette-heading">
+        IMDB: <%= movie.imdbRating%> &nbsp; &nbsp; &nbsp; Metascore: <%= movie.Metascore%>
+      </h3>
+      <% if (currUser) { %>
+      <!-- isFav goes here -->
+      <% const isFav = currUser.favoriteMovies.find((el) => el.name === movie.imdbID ) %>
+      <% if (!isFav) { %>
+      <form action="/user/<%= currUser._id %>/fav" method="post" class="mt-3">
+        <div class="hidden">
+          <input name="name" value="<%= movie.imdbID %>" />
+        </div>
+        <button class="btn btn-warning">Add to your Favourites <img src="/svg/heart.svg" class="svg" height="20px"></button>
+      </form>
+      <% } else { %>
+      <h3 class="cinema"><img src="/svg/heart-solid.svg" class="svg" height="20px"> Favourite</h3>
+      <% } %>
+      <!-- isWatched goes here -->
+      <% const isWatched = currUser.watchedMovies.find((el) => el.name === movie.imdbID ) %>
+      <% if (!isWatched) { %>
+      <form action="/user/<%= currUser._id %>/watch" method="post" class="mt-3">
+        <div class="hidden">
+          <input name="name" value="<%= movie.imdbID %>" />
+        </div>
+        <button class="btn btn-warning">Watched <img src="/svg/plus-solid.svg" class="svg" height="20px"></button>
+      </form>
+      <% } else { %>
+      <h3 class="cinema"><img src="/svg/eye-solid.svg" class="svg" height="20px"> Watched</h3>
+      <% } %>
+      <% } %>
+      <hr />
+      <p class="lead">Genre: <%= movie.Genre %></p>
+      <p class="lead">
+        Runtime: <%= movie.Runtime %> &nbsp; &nbsp; &nbsp; Rated: <%= movie.Rated %>
+      </p>
+      <p class="lead">Plot: <%= movie.Plot %> </p>
+      <p class="lead">Directed by: <%= movie.Director %> </p>
+      <p class="lead">Cast: <%= movie.Actors %> </p>
+      <p class="lead">Writer: <%= movie.Writer %></p>
+      <p class="lead">Language: <%= movie.Language %></p>
+      <p class="lead">BoxOffice: <%= movie.BoxOffice %></p>
+      <p class="lead">Awards: <%= movie.Awards %></p>
+      <p class="lead">Release Date: <%= movie.Released %></p>
+    </div>
+  </div>
+  <% if (currUser) { %>
+  <!-- isReview goes here -->
+  <% const isReviewed = movieReview.find((el) =>el.author.username === currUser.username ) %>
+  <% if (!isReviewed) { %>
+  <hr />
+  <h4>Add Reviews</h4>
+  <form action="/movie/<%= movie.imdbID %>/reviews" method="post" class="needs-validation mb-3">
+    <!-- Starbility -->
+    <div class="">
+      <label for="rating" class="form-label">Rating:</label>
+      <fieldset class="starability-slot">
+        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Terrible">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Not good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Amazing">5 stars</label>
+      </fieldset>
+    </div>
+
+    <div class="mb-3">
+      <label for="comment" class="form-label">Comment:</label>
+      <textarea name="review[comment]" class="form-control" required></textarea>
+    </div>
+    <div class="hidden">
+      <input name="review[movieId]" value="<%= movie.imdbID %>" />
+    </div>
+    <button class="btn btn-warning">Submit</button>
+  </form>
+  <% } %>
+  <% } %>
+  <!-- Show Review -->
+  <% if (movieReview !="" ) { %>
+  <hr />
+  <h4>All reviews</h4>
+  <div class="row">
+    <% movieReview.forEach(review=> { %>
+    <div class="col-sm-8 col-lg-6 mb-4">
+      <div class="card review-card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">@<%= review.author.username %>
+          </h5>
+          <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+          <p class="card-text">
+            <%= review.comment %>
+          </p>
+          <%if(currUser && currUser.username===review.author.username){%>
+          <form method="POST" action="/movie/<%= movie.imdbID %>/reviews/<%= review._id %>?_method=DELETE">
+            <button class="btn btn-sm btn-dark"><img src="/svg/trash-solid.svg" height="20px"></button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>

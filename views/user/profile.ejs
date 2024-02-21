@@ -1,0 +1,48 @@
+<% layout("/layout/biolerplate.ejs") %>
+<% if (currUser) { %>
+
+<div class="col col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1">
+  <% if (movieFav.length) { %>
+
+  <h1 class="flex-center"><%= currUser.username %> Favorite</h1>
+  <div class="row flex-center fav-card-container full-width">
+
+    <% movieFav.forEach(el => { %>
+    <div class="col-lg-1 fav-card mb-3">
+      <div class="card">
+        <a href="/movie/<%= el.imdbID %>">
+          <img src="<%= el.Poster %>" class="bd-placeholder-img card-img-top fav-card-img" height="175" />
+          <form method="POST" action="/user/<%= currUser._id %>?_method=DELETE">
+            <button class="btn fav-del">
+              <input name="name" value="<%= el.imdbID %>" class="hidden">
+              <img src="/svg/trash-solid.svg" class="fav-img">
+            </button>
+          </form>
+        </a>
+      </div>
+    </div>
+    <% }) %>
+
+  </div>
+  <% } else { %>
+  <h1 class="flex-center">No favorite</h1>
+  <% } %>
+  <!-- watched -->
+  <% if (movieWatched.length) { %>
+  <h1 class="flex-center">Movies you have Watched</h1>
+  <div class="row flex-center full-width">
+
+    <% movieWatched.forEach(el => { %>
+    <div class="col-lg-1 mb-2 watched-card">
+      <div class="card">
+        <a href="/movie/<%= el.imdbID %>">
+          <img src="<%= el.Poster %>" class="bd-placeholder-img card-img-top watched-card-img" />
+        </a>
+      </div>
+    </div>
+    <% }) %>
+
+  </div>
+  <% } %>
+</div>
+<% } %>
