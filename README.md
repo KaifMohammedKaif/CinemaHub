@@ -2,6 +2,8 @@
 
 CinemaHub is a dynamic movie review website that goes beyond conventional platforms, offering an immersive experience for movie enthusiasts. Built upon a robust MVC architecture, CinemaHub seamlessly integrates user-friendly features with a sleek design.
 
+[Explore CinemaHub](https://cinemahub-movie-review.onrender.com)
+
 ## Features:
 
 ### 1. User Ratings and Reviews:
