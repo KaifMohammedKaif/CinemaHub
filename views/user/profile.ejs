@@ -4,7 +4,7 @@
 <div class="col col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1">
   <% if (movieFav.length) { %>
 
-  <h1 class="flex-center"><%= currUser.username %> Favorite</h1>
+  <h1 class="flex-center"><%= currUser.username %>Your Favorite</h1>
   <div class="row flex-center fav-card-container full-width">
 
     <% movieFav.forEach(el => { %>
@@ -25,7 +25,7 @@
 
   </div>
   <% } else { %>
-  <h1 class="flex-center">No favorite</h1>
+  <h1 class="flex-center">You have No favorite Movies</h1>
   <% } %>
   <!-- watched -->
   <% if (movieWatched.length) { %>
